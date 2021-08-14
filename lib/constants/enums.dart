@@ -17,5 +17,6 @@ enum BiometricAuth {
 enum OnboardStrategy {
   firebase,
   sms,
+  local,
   none,
 }

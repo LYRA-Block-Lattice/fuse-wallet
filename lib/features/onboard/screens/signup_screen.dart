@@ -11,6 +11,7 @@ import 'package:fusecash/features/shared/widgets/primary_button.dart';
 import 'package:fusecash/features/onboard/dialogs/signup.dart';
 import 'package:fusecash/redux/viewsmodels/onboard.dart';
 import 'package:fusecash/features/shared/widgets/snackbars.dart';
+import 'package:phone_number/phone_number.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -240,41 +241,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 onPressed: () {
                                   final String phoneNumber =
                                       '${countryCode.dialCode}${phoneController.text}';
-                                  phoneNumberUtil.parse(phoneNumber).then(
-                                      (value) {
-                                    viewModel.signUp(
-                                      countryCode,
-                                      value,
-                                      () {
-                                        showErrorSnack(
-                                          message:
-                                              I10n.of(context).invalid_number,
-                                          title: I10n.of(context)
-                                              .something_went_wrong,
-                                          context: context,
-                                          margin: EdgeInsets.only(
-                                            top: 8,
-                                            right: 8,
-                                            left: 8,
-                                            bottom: 120,
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  }, onError: (e) {
-                                    showErrorSnack(
-                                      message: I10n.of(context).invalid_number,
-                                      title:
-                                          I10n.of(context).something_went_wrong,
-                                      context: context,
-                                      margin: EdgeInsets.only(
-                                        top: 8,
-                                        right: 8,
-                                        left: 8,
-                                        bottom: 120,
-                                      ),
-                                    );
-                                  });
+
+                                  viewModel.signUp(
+                                    countryCode,
+                                    phoneNumber,
+                                    () {
+                                      showErrorSnack(
+                                        message:
+                                            I10n.of(context).invalid_number,
+                                        title: I10n.of(context)
+                                            .something_went_wrong,
+                                        context: context,
+                                        margin: EdgeInsets.only(
+                                          top: 8,
+                                          right: 8,
+                                          left: 8,
+                                          bottom: 120,
+                                        ),
+                                      );
+                                    },
+                                  );
                                 },
                               ),
                             ),

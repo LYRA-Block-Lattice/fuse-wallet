@@ -174,24 +174,24 @@ class DeviceIdSuccess {
 
 ThunkAction loginHandler(
   CountryCode countryCode,
-  PhoneNumber phoneNumber,
+  String phoneNumber,
   VoidCallback loginFailureCallback,
 ) {
   return (Store store) async {
     try {
-      Segment.alias(alias: phoneNumber.e164);
+      Segment.alias(alias: phoneNumber);
       Segment.track(
         eventName: 'Sign up: Phone_NextBtn_Press',
       );
       store.dispatch(SetIsLoginRequest(isLoading: true));
       await onBoardStrategy.login(
         store,
-        phoneNumber.e164,
+        phoneNumber,
       );
       store.dispatch(
         LoginRequestSuccess(
           countryCode: countryCode,
-          phoneNumber: phoneNumber.e164,
+          phoneNumber: phoneNumber,
         ),
       );
     } catch (e, s) {
@@ -445,7 +445,7 @@ ThunkAction identifyCall() {
     UserState userState = store.state.userState;
     String displayName = userState.displayName;
     String phoneNumber = userState.phoneNumber;
-    String walletAddress = userState.walletAddress;
+    String walletAddress = userState.accountAddress;
     String accountAddress = userState.accountAddress;
     String identifier = userState.identifier;
     Sentry.configureScope((scope) {
@@ -524,12 +524,16 @@ ThunkAction loadContacts() {
 ThunkAction setupWalletCall(walletData) {
   return (Store store) async {
     try {
+      print('=== in ThunkAction setupWalletCall');
       List<String> networks = List<String>.from(walletData['networks']);
       String walletAddress = walletData['walletAddress'];
       bool backup = walletData['backup'] ?? false;
-      fuseWeb3 = getIt<Web3>(instanceName: 'fuseWeb3', param1: walletData);
+      //fuseWeb3 = getIt<Web3>(instanceName: 'fuseWeb3', param1: walletData);
       final String privateKey = store.state.userState.privateKey;
-      fuseWeb3!.setCredentials(privateKey);
+      final pkey = EthPrivateKey.fromHex(privateKey);
+      //fuseWeb3!.setCredentials(privateKey);
+      print('=== dispatching GetWalletAddressesSuccess');
+      print('=== walletAddress is ' + walletAddress);
       store.dispatch(GetWalletAddressesSuccess(
         backup: backup,
         walletAddress: walletAddress,

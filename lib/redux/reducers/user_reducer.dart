@@ -70,6 +70,8 @@ UserState _setSecurityType(UserState state, SetSecurityType action) {
 
 UserState _getWalletAddressesSuccess(
     UserState state, GetWalletAddressesSuccess action) {
+  print('=== in _getWalletAddressesSuccess');
+  print('=== action.walletAddress = ' + action.walletAddress);
   return state.copyWith(
     backup: action.backup,
     networks: action.networks,

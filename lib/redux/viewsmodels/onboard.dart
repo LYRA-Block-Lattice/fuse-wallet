@@ -21,7 +21,7 @@ class OnboardViewModel extends Equatable {
   final bool isVerifyRequest;
   final Function(
     CountryCode,
-    PhoneNumber,
+    String,
     VoidCallback loginFailureCallback,
   ) signUp;
   final Function(
@@ -67,7 +67,7 @@ class OnboardViewModel extends Equatable {
         // verifyErrorMessage: store.state.userState.verifyErrorMessage,
         signUp: (
           CountryCode countryCode,
-          PhoneNumber phoneNumber,
+          String phoneNumber,
           VoidCallback loginFailureCallback,
         ) {
           store.dispatch(loginHandler(

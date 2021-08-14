@@ -1,5 +1,6 @@
 import 'package:fusecash/constants/enums.dart';
 import 'package:fusecash/utils/onboard/firebase.dart';
+import 'package:fusecash/utils/onboard/local.dart';
 import 'package:fusecash/utils/onboard/simple.dart';
 import 'package:fusecash/utils/onboard/sms.dart';
 
@@ -18,6 +19,8 @@ class OnBoardStrategyFactory {
       return FirebaseStrategy();
     } else if (strategy == 'sms') {
       return SmsStrategy();
+    } else if (strategy == 'local') {
+      return LocalStrategy();
     } else {
       return SimpleStrategy();
     }

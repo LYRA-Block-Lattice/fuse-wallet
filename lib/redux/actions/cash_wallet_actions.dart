@@ -364,6 +364,9 @@ ThunkAction startFetchingCall() {
 ThunkAction createAccountWalletCall(String accountAddress) {
   return (Store store) async {
     try {
+      log.info('=== in ThunkAction createAccountWalletCall, accountAddress is' +
+          accountAddress);
+      api.setJwtToken(accountAddress);
       Map<String, dynamic> response = await api.createWallet(
         communityAddress: defaultCommunityAddress,
       );
@@ -810,9 +813,11 @@ ThunkAction switchToNewCommunityCall(String communityAddress) {
   return (Store store) async {
     try {
       log.info('Swithcing to new community $communityAddress');
-      String walletAddress = checksumEthereumAddress(
+      return;
+/*       String walletAddress = checksumEthereumAddress(
         store.state.userState.walletAddress,
-      );
+      ); 
+      String walletAddress = store.state.userState.walletAddress;
       Map<String, dynamic> communityData = await getCommunityData(
         checksumEthereumAddress(communityAddress),
         walletAddress,
@@ -855,7 +860,7 @@ ThunkAction switchToNewCommunityCall(String communityAddress) {
           ),
         );
       }
-      store.dispatch(getTokenPriceCall(communityToken));
+      store.dispatch(getTokenPriceCall(communityToken));*/
     } catch (e, s) {
       log.error('ERROR - switchToNewCommunityCall $e');
       store.dispatch(SwitchCommunityFailed(communityAddress: communityAddress));
