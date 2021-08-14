@@ -9,6 +9,7 @@ import 'package:fusecash/redux/viewsmodels/splash.dart';
 import 'package:fusecash/common/router/routes.dart';
 import 'package:fusecash/features/shared/widgets/primary_button.dart';
 import 'package:fusecash/features/shared/widgets/transparent_button.dart';
+import 'package:country_code_picker/country_code.dart';
 
 class SignUpButtons extends StatefulWidget {
   @override
@@ -53,7 +54,14 @@ class _SignUpButtonsState extends State<SignUpButtons> {
                       setState(() {
                         isPrimaryPreloading = false;
                       });
-                      context.router.replace(SignUpScreen());
+
+                      // simulate a 'sign up'
+                      viewModel.signUp(
+                        CountryCode(dialCode: '+1', code: 'US'),
+                        "1",
+                        () {},
+                      );
+                      context.router.replace(UserNameScreen());
                     }, () {
                       setState(() {
                         isPrimaryPreloading = false;
