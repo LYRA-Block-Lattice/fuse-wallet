@@ -494,8 +494,8 @@ ThunkAction saveUserInDB(walletAddress) {
         "source": 'wallet-v2',
         "displayName": displayName
       };
-      await api.saveUserToDb(user);
-      log.info('save user $walletAddress');
+      //await api.saveUserToDb(user);
+      //log.info('save user $walletAddress');
     } catch (e, s) {
       log.error('user $walletAddress already saved');
       await Sentry.captureException(e, stackTrace: s);
@@ -539,7 +539,7 @@ ThunkAction setupWalletCall(walletData) {
         walletAddress: walletAddress,
         networks: networks,
       ));
-      if (networks.contains(foreignNetwork)) {
+/*       if (networks.contains(foreignNetwork)) {
         ethereumWeb3 =
             getIt<Web3>(instanceName: 'ethereumWeb3', param1: walletData);
         ethereumWeb3!.setCredentials(privateKey);
@@ -549,7 +549,7 @@ ThunkAction setupWalletCall(walletData) {
           store.dispatch(fetchTokensBalances());
           store.dispatch(startFetchTokensLatestPrices());
         });
-      }
+      } */
     } catch (e, s) {
       log.error('ERROR - setupWalletCall $e');
       await Sentry.captureException(

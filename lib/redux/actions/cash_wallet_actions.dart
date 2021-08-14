@@ -1067,6 +1067,7 @@ ThunkAction getBusinessListCall({String? communityAddress, bool? isRopsten}) {
 ThunkAction getWalletActionsCall() {
   return (Store store) async {
     try {
+      return;
       String walletAddress = store.state.userState.walletAddress;
       WalletActions walletActions = store.state.cashWalletState.walletActions;
       Map<String, dynamic> response = await api.getActionsByWalletAddress(

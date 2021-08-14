@@ -136,6 +136,7 @@ ThunkAction fetchSwapListPrices() {
 ThunkAction fetchSwapBalances() {
   return (Store store) async {
     try {
+      return;
       SwapState swapState = store.state.swapState;
       String walletAddress = store.state.userState.walletAddress;
       if (fuseWeb3 == null) {
