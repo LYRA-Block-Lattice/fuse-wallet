@@ -344,7 +344,7 @@ ThunkAction startFetchingCall() {
     if (!isTransfersFetchingStarted) {
       // log.info('Timer start - startFetchingCall');
       store.dispatch(fetchListOfTokensByAddress());
-      store.dispatch(getWalletActionsCall());
+      //store.dispatch(getWalletActionsCall());
       store.dispatch(SetIsTransfersFetching(isFetching: true));
       Timer.periodic(Duration(seconds: Variables.INTERVAL_SECONDS),
           (Timer t) async {
@@ -356,7 +356,7 @@ ThunkAction startFetchingCall() {
           return;
         }
         store.dispatch(fetchListOfTokensByAddress());
-        store.dispatch(getWalletActionsCall());
+        //store.dispatch(getWalletActionsCall());
       });
     }
   };

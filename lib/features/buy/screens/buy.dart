@@ -21,7 +21,7 @@ class BuyScreen extends StatelessWidget {
       distinct: true,
       converter: BuyViewModel.fromStore,
       onInit: (store) {
-        store.dispatch(getBusinessListCall());
+        //store.dispatch(getBusinessListCall());
       },
       builder: (_, viewModel) {
         return MyScaffold(

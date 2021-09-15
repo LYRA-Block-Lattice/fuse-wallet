@@ -365,7 +365,7 @@ ThunkAction logoutCall() {
 ThunkAction reLoginCall() {
   return (Store store) async {
     store.dispatch(ReLogin());
-    store.dispatch(getWalletAddressesCall());
+    //store.dispatch(getWalletAddressesCall());
   };
 }
 

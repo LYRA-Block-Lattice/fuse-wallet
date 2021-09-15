@@ -60,7 +60,7 @@ class _BottomBarState extends State<BottomBar> {
       distinct: true,
       converter: HomeScreenViewModel.fromStore,
       onInit: (store) {
-        store.dispatch(fetchSwapList());
+        //store.dispatch(fetchSwapList());
         store.dispatch(startFetchingCall());
         store.dispatch(startFetchTokensBalances());
         store.dispatch(updateTokensPrices());
