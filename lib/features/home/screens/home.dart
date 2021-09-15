@@ -21,10 +21,10 @@ class HomeScreen extends StatelessWidget {
         viewModel.onStart();
       },
       onInit: (store) {
-        final communities = store.state.cashWalletState.communities;
-        if (!communities.containsKey(defaultCommunityAddress.toLowerCase())) {
-          store.dispatch(switchCommunityCall(defaultCommunityAddress));
-        }
+        // final communities = store.state.cashWalletState.communities;
+        // if (!communities.containsKey(defaultCommunityAddress.toLowerCase())) {
+        //   store.dispatch(switchCommunityCall(defaultCommunityAddress));
+        // }
       },
       builder: (_, viewModel) {
         return Scaffold(

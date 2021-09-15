@@ -22,6 +22,7 @@ class UserNameScreen extends StatelessWidget {
         converter: OnboardViewModel.fromStore,
         builder: (_, viewModel) {
           return Container(
+              child: SingleChildScrollView(
             child: Column(
               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -114,7 +115,7 @@ class UserNameScreen extends StatelessWidget {
                 )
               ],
             ),
-          );
+          ));
         },
       ),
     );

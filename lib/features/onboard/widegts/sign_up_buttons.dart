@@ -56,11 +56,11 @@ class _SignUpButtonsState extends State<SignUpButtons> {
                       });
 
                       // simulate a 'sign up'
-                      viewModel.signUp(
-                        CountryCode(dialCode: '+1', code: 'US'),
-                        "1",
-                        () {},
-                      );
+                      // viewModel.signUp(
+                      //   CountryCode(dialCode: '+1', code: 'US'),
+                      //   "1",
+                      //   () {},
+                      // );
                       context.router.replace(UserNameScreen());
                     }, () {
                       setState(() {

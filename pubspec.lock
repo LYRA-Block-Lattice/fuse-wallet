@@ -896,12 +896,12 @@ packages:
     source: hosted
     version: "1.0.1"
   lyra:
-    dependency: transitive
+    dependency: "direct main"
     description:
-      path: "../lyra_dart"
-      relative: true
-    source: path
-    version: "0.0.5"
+      name: lyra
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.7"
   matcher:
     dependency: transitive
     description:

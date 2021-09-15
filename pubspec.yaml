@@ -4,6 +4,7 @@ description: Cross platform mobile Ethereum wallet.
 environment:
   sdk: ">=2.12.0 <3.0.0"
 dependencies:
+  lyra: ^0.0.7
   flutter_svg_provider: ^0.1.9
   confetti: ^0.6.0-nullsafety
   flutter_localized_locales: ^2.0.2

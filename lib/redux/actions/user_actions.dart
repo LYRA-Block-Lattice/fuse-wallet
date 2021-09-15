@@ -283,8 +283,8 @@ ThunkAction restoreWalletCall(
           mnemonic,
         );
         log.info('privateKey: $privateKey');
-        Credentials credentials = EthPrivateKey.fromHex(privateKey);
-        EthereumAddress accountAddress = await credentials.extractAddress();
+        Credentials credentials = LyraPrivateKey.fromHex(privateKey);
+        LyraAddress accountAddress = await credentials.extractAddress();
         store.dispatch(
           CreateLocalAccountSuccess(
             mnemonic.split(' '),
@@ -335,11 +335,11 @@ ThunkAction createLocalAccountCall(
       log.info('compute pk');
       String privateKey = await compute(Web3.privateKeyFromMnemonic, mnemonic);
       log.info('privateKey: $privateKey');
-      Credentials credentials = EthPrivateKey.fromHex(privateKey);
-      EthereumAddress accountAddress = await credentials.extractAddress();
+      Credentials credentials = LyraPrivateKey.fromHex(privateKey);
+      LyraAddress accountAddress = await credentials.extractAddress();
       store.dispatch(CreateLocalAccountSuccess(
           mnemonic.split(' '), privateKey, accountAddress.toString()));
-      store.dispatch(setDefaultCommunity());
+      //store.dispatch(setDefaultCommunity());
       Segment.track(
         eventName: 'New User: Create Wallet',
       );
@@ -470,11 +470,11 @@ ThunkAction identifyCall() {
 
     if (Platform.isAndroid) {
       try {
-        final String token = (await getIt<FirebaseMessaging>().getToken())!;
-        log.info("Firebase messaging token $token");
-        await Segment.setContext({
-          'device': {'token': token},
-        });
+        // final String token = (await getIt<FirebaseMessaging>().getToken())!;
+        // log.info("Firebase messaging token $token");
+        // await Segment.setContext({
+        //   'device': {'token': token},
+        // });
       } catch (e, s) {
         log.error('Error in identifyCall: ${e.toString()} ${s.toString()}');
       }
@@ -530,7 +530,7 @@ ThunkAction setupWalletCall(walletData) {
       bool backup = walletData['backup'] ?? false;
       //fuseWeb3 = getIt<Web3>(instanceName: 'fuseWeb3', param1: walletData);
       final String privateKey = store.state.userState.privateKey;
-      final pkey = EthPrivateKey.fromHex(privateKey);
+      final pkey = LyraPrivateKey.fromHex(privateKey);
       //fuseWeb3!.setCredentials(privateKey);
       print('=== dispatching GetWalletAddressesSuccess');
       print('=== walletAddress is ' + walletAddress);

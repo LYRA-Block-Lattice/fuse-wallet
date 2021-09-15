@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:ethereum_address/ethereum_address.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -246,18 +247,18 @@ class SetShowDepositBanner {}
 ThunkAction enablePushNotifications() {
   return (Store store) async {
     try {
-      await getIt<FirebaseMessaging>().requestPermission(
-        sound: true,
-        badge: true,
-        alert: true,
-      );
-      final String token = (await getIt<FirebaseMessaging>().getToken())!;
-      log.info("Firebase messaging token $token");
-      String walletAddress = store.state.userState.walletAddress;
-      await api.updateFirebaseToken(walletAddress, token);
-      await Segment.setContext({
-        'device': {'token': token},
-      });
+      // await getIt<FirebaseMessaging>().requestPermission(
+      //   sound: true,
+      //   badge: true,
+      //   alert: true,
+      // );
+      // final String token = (await getIt<FirebaseMessaging>().getToken())!;
+      // log.info("Firebase messaging token $token");
+      // String walletAddress = store.state.userState.walletAddress;
+      // await api.updateFirebaseToken(walletAddress, token);
+      // await Segment.setContext({
+      //   'device': {'token': token},
+      // });
     } catch (e, s) {
       log.error('ERROR - Enable push notifications: $e');
       await Sentry.captureException(
@@ -367,29 +368,37 @@ ThunkAction createAccountWalletCall(String accountAddress) {
       log.info('=== in ThunkAction createAccountWalletCall, accountAddress is' +
           accountAddress);
       api.setJwtToken(accountAddress);
-      Map<String, dynamic> response = await api.createWallet(
-        communityAddress: defaultCommunityAddress,
-      );
-      if (!response.containsKey('job')) {
-        log.info('Wallet already exists');
-        store.dispatch(generateWalletSuccessCall(response));
-        store.dispatch(switchCommunityCall(
-          defaultCommunityAddress,
-        ));
-      } else {
-        CashWalletState cashWalletState = store.state.cashWalletState;
-        Community? community =
-            cashWalletState.communities[defaultCommunityAddress.toLowerCase()];
-        if (!cashWalletState.tokens.containsKey(community?.homeTokenAddress)) {
-          final response = await api.getWallet();
-          store.dispatch(generateWalletSuccessCall(response));
-          store.dispatch(
-            switchCommunityCall(
-              defaultCommunityAddress,
-            ),
-          );
-        }
-      }
+      var jsonString =
+          '{ "walletAddress": "${accountAddress}", "backup": false, "networks": ["mainnet", "testnet"] }';
+      // 'backup': 'false',
+      // 'networks': {['mainnet', 'testnet'] }
+      //};
+      Map<String, dynamic> response = jsonDecode(jsonString);
+      store.dispatch(generateWalletSuccessCall(response));
+      // return;
+      // Map<String, dynamic> response = await api.createWallet(
+      //   communityAddress: defaultCommunityAddress,
+      // );
+      // if (!response.containsKey('job')) {
+      //   log.info('Wallet already exists');
+      //   store.dispatch(generateWalletSuccessCall(response));
+      //   store.dispatch(switchCommunityCall(
+      //     defaultCommunityAddress,
+      //   ));
+      // } else {
+      //   CashWalletState cashWalletState = store.state.cashWalletState;
+      //   Community? community =
+      //       cashWalletState.communities[defaultCommunityAddress.toLowerCase()];
+      //   if (!cashWalletState.tokens.containsKey(community?.homeTokenAddress)) {
+      //     final response = await api.getWallet();
+      //     store.dispatch(generateWalletSuccessCall(response));
+      //     store.dispatch(
+      //       switchCommunityCall(
+      //         defaultCommunityAddress,
+      //       ),
+      //     );
+      //   }
+      // }
     } catch (e, s) {
       log.error('ERROR - createAccountWalletCall $e');
       await Sentry.captureException(
@@ -1067,7 +1076,6 @@ ThunkAction getBusinessListCall({String? communityAddress, bool? isRopsten}) {
 ThunkAction getWalletActionsCall() {
   return (Store store) async {
     try {
-      return;
       String walletAddress = store.state.userState.walletAddress;
       WalletActions walletActions = store.state.cashWalletState.walletActions;
       Map<String, dynamic> response = await api.getActionsByWalletAddress(

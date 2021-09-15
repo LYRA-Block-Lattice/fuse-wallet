@@ -33,7 +33,8 @@ class _SplashScreenState extends State<SplashScreen> {
     String privateKey = store.state.userState.privateKey;
     String jwtToken = store.state.userState.jwtToken;
     bool isLoggedOut = store.state.userState.isLoggedOut;
-    if (privateKey.isEmpty || jwtToken.isEmpty || isLoggedOut) {
+    if (privateKey.isEmpty) {
+      // || jwtToken.isEmpty || isLoggedOut) {
       await Segment.setContext({});
       context.router.replaceAll([OnBoardScreen()]);
       widget.onLoginResult?.call(false);
@@ -45,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
         );
         store.dispatch(getWalletAddressesCall());
         store.dispatch(identifyCall());
-        store.dispatch(loadContacts());
+        //store.dispatch(loadContacts());
         await AppTrackingTransparency.requestTrackingAuthorization();
       }
       if (BiometricAuth.faceID == userState.authType ||
