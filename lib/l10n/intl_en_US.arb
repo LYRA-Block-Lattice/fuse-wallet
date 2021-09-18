@@ -342,7 +342,7 @@
   "@restore_backup": {},
   "restore_from_backup": "Restore from backup",
   "@restore_from_backup": {},
-  "restore_words": "This is a 12 word phrase you were given when you created your previous wallet",
+  "restore_words": "This is a 12 word phrase you were given when you created your previous wallet, or private key.",
   "@restore_words": {},
   "re_type_passcode": "Re-type your passcode",
   "@re_type_passcode": {},

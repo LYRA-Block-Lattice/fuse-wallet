@@ -315,6 +315,53 @@ ThunkAction restoreWalletCall(
   };
 }
 
+ThunkAction restoreWalletByPrivateKeyCall(
+  String privateKey,
+  VoidCallback successCallback,
+  VoidCallback failureCallback,
+) {
+  return (Store store) async {
+    try {
+      log.info('restore wallet by private key');
+      log.info('private key: $privateKey');
+      log.info('compute pk');
+      if (LyraPrivateKey.validatePrivateKey(privateKey)) {
+        log.info('private Key is valid.');
+        LyraPrivateKey credentials = LyraPrivateKey.fromString(privateKey);
+        LyraAddress accountAddress = await credentials.extractAddress();
+
+        final mnemonic = "           "; // fake mnemonic
+        final hexPrivateKey = Web3.hexPrivateKey(credentials);
+        store.dispatch(
+          CreateLocalAccountSuccess(
+            mnemonic.split(' '),
+            hexPrivateKey,
+            accountAddress.toString(),
+          ),
+        );
+        store.dispatch(setDefaultCommunity());
+        successCallback();
+        Segment.track(
+          eventName: 'Existing User: Successful Restore wallet from backup',
+        );
+      } else {
+        throw Exception('invalid private key');
+      }
+    } catch (e, s) {
+      log.error('ERROR - restoreWalletCall $e');
+      Segment.track(
+        eventName: 'Existing User: Failed to restore wallet from backup',
+      );
+      failureCallback();
+      await Sentry.captureException(
+        e,
+        stackTrace: s,
+        hint: 'ERROR in restore wallet',
+      );
+    }
+  };
+}
+
 ThunkAction setDeviceId() {
   return (Store store) async {
     String identifier = await FlutterUdid.udid;

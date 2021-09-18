@@ -22,13 +22,23 @@ class RecoveryViewModel {
         VoidCallback successCallback,
         VoidCallback failureCallback,
       ) {
-        store.dispatch(
-          restoreWalletCall(
-            mnemonic.split(' ').toList(),
-            successCallback,
-            failureCallback,
-          ),
-        );
+        if (mnemonic.trim().contains(' ')) {
+          store.dispatch(
+            restoreWalletCall(
+              mnemonic.toLowerCase().split(' ').toList(),
+              successCallback,
+              failureCallback,
+            ),
+          );
+        } else {
+          store.dispatch(
+            restoreWalletByPrivateKeyCall(
+              mnemonic,
+              successCallback,
+              failureCallback,
+            ),
+          );
+        }
       },
     );
   }

@@ -74,36 +74,36 @@ class _RestoreFromBackupScreenState extends State<RestoreFromBackupScreen> {
                       children: <Widget>[
                         Container(
                           child: TextFormField(
-                            controller: wordsController,
-                            keyboardType: TextInputType.multiline,
-                            maxLines: 5,
-                            autofocus: false,
-                            style: TextStyle(
-                              color: Theme.of(context).colorScheme.onSurface,
-                              backgroundColor: Theme.of(context).canvasColor,
-                            ),
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
-                                ),
+                              controller: wordsController,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 5,
+                              autofocus: false,
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                                backgroundColor: Theme.of(context).canvasColor,
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 2,
-                                  color:
-                                      Theme.of(context).colorScheme.onSurface,
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
                                 ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 2,
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
+                                ),
+                                fillColor: Colors.transparent,
                               ),
-                              fillColor: Colors.transparent,
-                            ),
-                            validator: (String? value) =>
-                                value?.split(" ").length != 12
-                                    ? 'Please enter 12 words'
-                                    : null,
-                          ),
+                              validator: (String? value) => null
+                              // value?.split(" ").length != 12
+                              //     ? 'Please enter 12 words'
+                              //     : null,
+                              ),
                         )
                       ],
                     ),
@@ -128,11 +128,11 @@ class _RestoreFromBackupScreenState extends State<RestoreFromBackupScreen> {
                             isPreloading = true;
                           });
                           viewModel.generateWalletFromBackup(
-                              wordsController.text.toLowerCase(), () {
+                              wordsController.text, () {
                             setState(() {
                               isPreloading = false;
                             });
-                            context.router.push(SignUpScreen());
+                            context.router.push(UserNameScreen());
                           }, () {
                             setState(() {
                               isPreloading = false;

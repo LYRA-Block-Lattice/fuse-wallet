@@ -280,7 +280,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "restore_from_backup":
             MessageLookupByLibrary.simpleMessage("Врати из резервне копије"),
         "restore_words": MessageLookupByLibrary.simpleMessage(
-            "This is a 12 word phrase you were given when you created your previous wallet"),
+            "This is a 12 word phrase you were given when you created your previous wallet, or private key."),
         "review_swap": MessageLookupByLibrary.simpleMessage("Review swap"),
         "review_trade": MessageLookupByLibrary.simpleMessage("Review trade"),
         "review_transfer":

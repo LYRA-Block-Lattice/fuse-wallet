@@ -1763,7 +1763,7 @@ class I10n {
   /// `This is a 12 word phrase you were given when you created your previous wallet`
   String get restore_words {
     return Intl.message(
-      'This is a 12 word phrase you were given when you created your previous wallet',
+      'This is a 12 word phrase you were given when you created your previous wallet, or private key.',
       name: 'restore_words',
       desc: '',
       args: [],

@@ -313,7 +313,7 @@ ThunkAction startFetchTokensBalances() {
         store.state.cashWalletState.isFetchingBalances ?? false;
     final String walletAddress = store.state.userState.walletAddress;
     if (!isFetchingBalances) {
-      // log.info('Start Fetching token balances');
+      log.info('Start Fetching token balances');
       Timer.periodic(Duration(seconds: Variables.INTERVAL_SECONDS),
           (Timer timer) async {
         String currentWalletAddress = store.state.userState.walletAddress;
