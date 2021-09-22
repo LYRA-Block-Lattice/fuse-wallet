@@ -18,16 +18,16 @@ class HomeViewModel {
 
     return HomeViewModel(
       onStart: () {
-        if (store.state.cashWalletState.tokens.isEmpty &&
-            !isCommunityLoading &&
-            isCommunityFetched) {
-          store.dispatch(fetchLyraBalance());
-        }
-        if (!isCommunityLoading &&
-            !isCommunityFetched &&
-            ![null, ''].contains(walletAddress)) {
-          store.dispatch(refetchCommunityData());
-        }
+        // if (store.state.cashWalletState.tokens.isEmpty &&
+        //     !isCommunityLoading &&
+        //     isCommunityFetched) {
+        //   store.dispatch(switchCommunityCall(defaultCommunityAddress));
+        // }
+        // if (!isCommunityLoading &&
+        //     !isCommunityFetched &&
+        //     ![null, ''].contains(walletAddress)) {
+        //   store.dispatch(refetchCommunityData());
+        // }
       },
     );
   }

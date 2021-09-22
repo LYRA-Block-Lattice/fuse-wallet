@@ -508,15 +508,18 @@ ThunkAction fetchListOfTokensByAddress() {
   return (Store store) async {
     try {
       String walletAddress = store.state.userState.walletAddress;
-      List<Token> tokensList = await fuseExplorerApi.getListOfTokensByAddress(
-        walletAddress,
-      );
+      // List<Token> tokensList = await fuseExplorerApi.getListOfTokensByAddress(
+      //   walletAddress,
+      // );
+      List<Token> tokensList = [lyraToken, lyraDollarToken];
       CashWalletState cashWalletState = store.state.cashWalletState;
       Map<String, Token> newTokens = Map<String, Token>.from(tokensList.fold(
         {},
         (previousValue, element) {
-          if (!cashWalletState.tokens.containsKey(element.address) &&
-              num.parse(element.getBalance(true)).compareTo(0) == 1) {
+          if (!cashWalletState.tokens.containsKey(element
+                  .address) /* &&
+              num.parse(element.getBalance(true)).compareTo(0) == 1*/
+              ) {
             log.info('New token added ${element.name}');
             previousValue[element.address] = element;
           }
@@ -1007,46 +1010,6 @@ ThunkAction switchCommunityCall(String communityAddress) {
   };
 }
 
-ThunkAction fetchLyraBalance() {
-  return (Store store) async {
-    String accountId = store.state.userState.accountAddress;
-    log.info('fetchLyraBalance $accountId');
-    try {
-      BigInt fuseBalance =
-          store.state.cashWalletState.tokens[lyraToken.address]?.amount ??
-              BigInt.zero;
-
-      if (fuseWeb3 == null) {
-        throw 'web3 is empty';
-      }
-      EtherAmount balance = await fuseWeb3!.getBalance(
-        address: accountId,
-      );
-      if (true) {
-        //balance.getInWei.compareTo(fuseBalance) != 0) {
-        store.dispatch(
-          AddCashToken(
-            token: lyraToken.copyWith(
-              amount: balance.getInWei,
-            ),
-          ),
-        );
-        store.dispatch(getTokenPriceCall(lyraToken));
-      }
-    } catch (e, s) {
-      log.info('ERROR - fetchLyraBalance $e');
-      store.dispatch(
-        SwitchCommunityFailed(communityAddress: accountId),
-      );
-      await Sentry.captureException(
-        e,
-        stackTrace: s,
-        hint: 'ERROR while trying to switch to community $accountId',
-      );
-    }
-  };
-}
-
 ThunkAction getBusinessListCall({String? communityAddress, bool? isRopsten}) {
   return (Store store) async {
     try {
@@ -1143,7 +1106,7 @@ ThunkAction updateTokensPrices() {
     Map<String, Token> tokens = store.state.cashWalletState.tokens;
     for (Token token in tokens.values) {
       store.dispatch(getTokenPriceCall(token));
-      store.dispatch(getTokenPriceChangeCall(token));
+      //store.dispatch(getTokenPriceChangeCall(token));
       // store.dispatch(getTokenStatsCall(token));
     }
   };
@@ -1386,27 +1349,18 @@ ThunkAction getFuseBalance() {
 
 ThunkAction refresh() {
   return (Store store) async {
-    if (store.state.cashWalletState.tokens.isEmpty) {
-      store.dispatch(getFuseBalance());
-      // store.dispatch(
-      //   AddCashToken(
-      //     token: lyraToken.copyWith(
-      //       amount: BigInt.zero,
-      //     ),
-      //   ),
-      // );
-      // store.dispatch(
-      //   AddCashToken(
-      //     token: lyraDollarToken.copyWith(
-      //       amount: BigInt.zero,
-      //     ),
-      //   ),
-      // );
-    }
     //  store.dispatch(getTokenBalanceCall(lyraToken));
     // store.dispatch(fetchListOfTokensByAddress());
     // store.dispatch(startFetchingCall());
-    //  store.dispatch(startFetchTokensBalances());
+    //store.dispatch(getTokenBalanceCall);
     // store.dispatch(updateTokensPrices());
+
+    Map<String, Token> tokens = store.state.cashWalletState.tokens;
+    store.dispatch(getFuseBalance());
+    for (Token token in tokens.values) {
+      if (![null, ''].contains(token.address)) {
+        store.dispatch(getTokenBalanceCall(token));
+      }
+    }
   };
 }

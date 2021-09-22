@@ -27,15 +27,15 @@ Map<String, Token> tokensFromJson(Map<String, dynamic>? tokens) =>
                 e as Map<String, dynamic>,
               ),
             ),
-          )
-      ..putIfAbsent(
-        Addresses.ZERO_ADDRESS,
-        () => lyraToken.copyWith(),
-      )
-      ..putIfAbsent(
-        Addresses.FUSE_DOLLAR_TOKEN_ADDRESS,
-        () => lyraDollarToken.copyWith(),
-      );
+          );
+// ..putIfAbsent(
+//   Addresses.ZERO_ADDRESS,
+//   () => lyraToken.copyWith(),
+// )
+// ..putIfAbsent(
+//   Addresses.FUSE_DOLLAR_TOKEN_ADDRESS,
+//   () => lyraDollarToken.copyWith(),
+// );
 
 Map<String, Community> communitiesFromJson(Map<String, dynamic>? list) {
   if (list == null) {
