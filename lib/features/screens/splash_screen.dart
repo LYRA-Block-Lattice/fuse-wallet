@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Segment.track(
           eventName: 'Session Start: Authentication request for existed user',
         );
-        // store.dispatch(getWalletAddressesCall());
+        store.dispatch(getWalletAddressesCall());
         // store.dispatch(identifyCall());
         //store.dispatch(loadContacts());
         await AppTrackingTransparency.requestTrackingAuthorization();

@@ -27,14 +27,19 @@ class BackupViewModel extends Equatable {
 
 class LockScreenViewModel extends Equatable {
   final String pincode;
+  final Function() loginAgain;
 
   LockScreenViewModel({
     required this.pincode,
+    required this.loginAgain,
   });
 
   static LockScreenViewModel fromStore(Store<AppState> store) {
     return LockScreenViewModel(
       pincode: store.state.userState.pincode,
+      loginAgain: () {
+        store.dispatch(reLoginCall());
+      },
     );
   }
 

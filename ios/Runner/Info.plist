@@ -126,13 +126,13 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>branch_app_domain</key>
-	<string>fuseio.app.link</string>
+	<string>rdf2y.app.link</string>
 	<key>branch_key</key>
-	<string>key_live_aaSvQXmuELUQfsYeG4UfWemnqEiq04hr</string>
+	<string>key_live_edXurZdzQZMnS81lmwBdGlepwzdXcLje</string>
 	<key>branch_universal_link_domains</key>
 	<array>
-		<string>app.fuse.io</string>
-		<string>fuseio.app.link</string>
+		<string>lyra.live</string>
+		<string>rdf2y.app.link</string>
 		<string>fuseio-alternate.app.link</string>
 		<string>fuseio.test-app.link</string>
 		<string>fuseio-alternate.test-app.link</string>

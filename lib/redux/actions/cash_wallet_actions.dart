@@ -368,8 +368,10 @@ ThunkAction createAccountWalletCall(String accountAddress) {
       log.info('=== in ThunkAction createAccountWalletCall, accountAddress is' +
           accountAddress);
       api.setJwtToken(accountAddress);
+      // var jsonString =
+      //     '{ "walletAddress": "${accountAddress}", "backup": false, "networks": ["mainnet", "testnet"] }';
       var jsonString =
-          '{ "walletAddress": "${accountAddress}", "backup": false, "networks": ["mainnet", "testnet"] }';
+          '{"walletAddress": "${accountAddress}","accountAddress": "${accountAddress}","networks": ["mainnet", "testnet"],"backup": false,"phoneNumber": "1","communityManager": "","transferManager": "","dAIPointsManager": ""}';
       // 'backup': 'false',
       // 'networks': {['mainnet', 'testnet'] }
       //};
@@ -821,7 +823,7 @@ Future<Token> fetchToken(
 ThunkAction switchToNewCommunityCall(String communityAddress) {
   return (Store store) async {
     try {
-      log.info('Swithcing to new community $communityAddress');
+      //log.info('Swithcing to new community $communityAddress');
       return;
 /*       String walletAddress = checksumEthereumAddress(
         store.state.userState.walletAddress,
@@ -1000,6 +1002,46 @@ ThunkAction switchCommunityCall(String communityAddress) {
         e,
         stackTrace: s,
         hint: 'ERROR while trying to switch to community $communityAddress',
+      );
+    }
+  };
+}
+
+ThunkAction fetchLyraBalance() {
+  return (Store store) async {
+    String accountId = store.state.userState.accountAddress;
+    log.info('fetchLyraBalance $accountId');
+    try {
+      BigInt fuseBalance =
+          store.state.cashWalletState.tokens[lyraToken.address]?.amount ??
+              BigInt.zero;
+
+      if (fuseWeb3 == null) {
+        throw 'web3 is empty';
+      }
+      EtherAmount balance = await fuseWeb3!.getBalance(
+        address: accountId,
+      );
+      if (true) {
+        //balance.getInWei.compareTo(fuseBalance) != 0) {
+        store.dispatch(
+          AddCashToken(
+            token: lyraToken.copyWith(
+              amount: balance.getInWei,
+            ),
+          ),
+        );
+        store.dispatch(getTokenPriceCall(lyraToken));
+      }
+    } catch (e, s) {
+      log.info('ERROR - fetchLyraBalance $e');
+      store.dispatch(
+        SwitchCommunityFailed(communityAddress: accountId),
+      );
+      await Sentry.captureException(
+        e,
+        stackTrace: s,
+        hint: 'ERROR while trying to switch to community $accountId',
       );
     }
   };
@@ -1317,7 +1359,7 @@ ThunkAction getFuseBalance() {
   return (Store store) async {
     try {
       BigInt fuseBalance =
-          store.state.cashWalletState.tokens[fuseToken.address]?.amount ??
+          store.state.cashWalletState.tokens[lyraToken.address]?.amount ??
               BigInt.zero;
       String walletAddress = store.state.userState.walletAddress;
       if (fuseWeb3 == null) {
@@ -1329,12 +1371,12 @@ ThunkAction getFuseBalance() {
       if (balance.getInWei.compareTo(fuseBalance) != 0) {
         store.dispatch(
           AddCashToken(
-            token: fuseToken.copyWith(
+            token: lyraToken.copyWith(
               amount: balance.getInWei,
             ),
           ),
         );
-        store.dispatch(getTokenPriceCall(fuseToken));
+        store.dispatch(getTokenPriceCall(lyraToken));
       }
     } catch (error) {
       log.error('Error in Get Fuse Balance ${error.toString()}');
@@ -1344,10 +1386,27 @@ ThunkAction getFuseBalance() {
 
 ThunkAction refresh() {
   return (Store store) async {
-    store.dispatch(ResetTokenTxs());
-    store.dispatch(fetchListOfTokensByAddress());
-    store.dispatch(startFetchingCall());
-    store.dispatch(startFetchTokensBalances());
-    store.dispatch(updateTokensPrices());
+    if (store.state.cashWalletState.tokens.isEmpty) {
+      store.dispatch(getFuseBalance());
+      // store.dispatch(
+      //   AddCashToken(
+      //     token: lyraToken.copyWith(
+      //       amount: BigInt.zero,
+      //     ),
+      //   ),
+      // );
+      // store.dispatch(
+      //   AddCashToken(
+      //     token: lyraDollarToken.copyWith(
+      //       amount: BigInt.zero,
+      //     ),
+      //   ),
+      // );
+    }
+    //  store.dispatch(getTokenBalanceCall(lyraToken));
+    // store.dispatch(fetchListOfTokensByAddress());
+    // store.dispatch(startFetchingCall());
+    //  store.dispatch(startFetchTokensBalances());
+    // store.dispatch(updateTokensPrices());
   };
 }

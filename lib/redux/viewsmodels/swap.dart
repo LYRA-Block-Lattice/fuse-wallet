@@ -26,7 +26,7 @@ class SwapViewModel extends Equatable {
     Community? community =
         store.state.cashWalletState.communities[communityAddress];
     final List<Token> tokens = store.state.swapState.tokens.values.toList();
-    final Token fusd = store.state.swapState.tokens[fuseDollarToken.address]!;
+    final Token fusd = store.state.swapState.tokens[lyraDollarToken.address]!;
     final Token wfuse = store.state.swapState.tokens[wfuseTokenAddress]!;
     final Token weth = store.state.swapState.tokens[wethTokenAddress]!;
     final Token wbtc = store.state.swapState.tokens[wbtcTokenAddress]!;

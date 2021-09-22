@@ -412,7 +412,7 @@ ThunkAction logoutCall() {
 ThunkAction reLoginCall() {
   return (Store store) async {
     store.dispatch(ReLogin());
-    //store.dispatch(getWalletAddressesCall());
+    store.dispatch(getWalletAddressesCall());
   };
 }
 
@@ -575,10 +575,10 @@ ThunkAction setupWalletCall(walletData) {
       List<String> networks = List<String>.from(walletData['networks']);
       String walletAddress = walletData['walletAddress'];
       bool backup = walletData['backup'] ?? false;
-      //fuseWeb3 = getIt<Web3>(instanceName: 'fuseWeb3', param1: walletData);
+      fuseWeb3 = getIt<Web3>(instanceName: 'fuseWeb3', param1: walletData);
       final String privateKey = store.state.userState.privateKey;
       final pkey = LyraPrivateKey.fromHex(privateKey);
-      //fuseWeb3!.setCredentials(privateKey);
+      fuseWeb3!.setCredentials(privateKey);
       print('=== dispatching GetWalletAddressesSuccess');
       print('=== walletAddress is ' + walletAddress);
       store.dispatch(GetWalletAddressesSuccess(
@@ -586,7 +586,7 @@ ThunkAction setupWalletCall(walletData) {
         walletAddress: walletAddress,
         networks: networks,
       ));
-/*       if (networks.contains(foreignNetwork)) {
+      if (networks.contains(foreignNetwork)) {
         ethereumWeb3 =
             getIt<Web3>(instanceName: 'ethereumWeb3', param1: walletData);
         ethereumWeb3!.setCredentials(privateKey);
@@ -596,7 +596,7 @@ ThunkAction setupWalletCall(walletData) {
           store.dispatch(fetchTokensBalances());
           store.dispatch(startFetchTokensLatestPrices());
         });
-      } */
+      }
     } catch (e, s) {
       log.error('ERROR - setupWalletCall $e');
       await Sentry.captureException(

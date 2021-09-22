@@ -63,7 +63,7 @@ class ActionDetailsScreen extends StatelessWidget {
           createWallet: (value) => null,
           joinCommunity: (value) => null,
           fiatDeposit: (value) =>
-              viewModel.tokens[fuseDollarToken.address.toLowerCase()],
+              viewModel.tokens[lyraDollarToken.address.toLowerCase()],
           bonus: (value) => viewModel.tokens[value.tokenAddress.toLowerCase()],
           send: (value) => viewModel.tokens[value.tokenAddress.toLowerCase()],
           receive: (value) =>

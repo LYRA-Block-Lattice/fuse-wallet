@@ -401,7 +401,7 @@ class _SwapScreenState extends State<SwapScreen> {
         ? viewModel.tokens.firstWhere(
             (element) => widget.primaryToken?.address == element.address)
         : viewModel.tokens.firstWhere(
-            (element) => element.address == fuseDollarToken.address);
+            (element) => element.address == lyraDollarToken.address);
     final Token receiveToken = viewModel.receiveTokens
         .firstWhere((element) => element.address != payWith.address);
     setState(() {

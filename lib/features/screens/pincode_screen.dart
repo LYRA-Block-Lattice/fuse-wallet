@@ -144,6 +144,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                                       eventName:
                                           'Session Start: Authentication success',
                                     );
+                                    //viewModel.loginAgain();
                                     context.router.replaceAll([MainScreen()]);
                                     pincodeController.clear();
                                   } else {

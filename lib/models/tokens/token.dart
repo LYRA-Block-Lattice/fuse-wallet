@@ -70,7 +70,7 @@ class Token with _$Token implements Comparable<Token> {
     if ([null, ''].contains(accountAddress) || [null, ''].contains(address))
       return;
     if (isNative) {
-      Web3? web3 = originNetwork == 'fuse' ? fuseWeb3 : ethereumWeb3;
+      Web3? web3 = originNetwork == 'lyra' ? fuseWeb3 : ethereumWeb3;
       if (web3 == null) {
         throw 'web3 is empty';
       }

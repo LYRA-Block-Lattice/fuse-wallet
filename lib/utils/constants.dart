@@ -1,4 +1,4 @@
-import 'package:fusecash/constants/addresses.dart';
+//import 'package:fusecash/constants/addresses.dart';
 import 'package:fusecash/models/actions/actions.dart';
 import 'package:fusecash/models/tokens/token.dart';
 import 'package:fusecash/utils/string.dart';
@@ -7,26 +7,26 @@ final String wethTokenAddress = '0xa722c13135930332eb3d749b2f0906559d2c5b99';
 final String wbtcTokenAddress = '0x33284f95ccb7b948d9d352e1439561cf83d8d00d';
 final String wfuseTokenAddress = '0x0be9e53fd7edac9f859882afdda116645287c629';
 
-final Token fuseToken = Token(
-  name: 'Fuse',
-  symbol: 'FUSE',
+final Token lyraToken = Token(
+  name: 'Lyra',
+  symbol: 'LYR',
   imageUrl: 'https://fuselogo.s3.eu-central-1.amazonaws.com/fuse-token.png',
   decimals: 18,
-  address: Addresses.ZERO_ADDRESS,
-  originNetwork: 'fuse',
+  address: '0x0000000000000000000000000000000000000001',
+  originNetwork: 'lyra',
   isNative: true,
   timestamp: 0,
   amount: BigInt.zero,
   walletActions: WalletActions.initial(),
 );
 
-final Token fuseDollarToken = Token(
-  name: 'Fuse Dollar',
-  symbol: 'fUSD',
+final Token lyraDollarToken = Token(
+  name: 'Lyra Dollar',
+  symbol: 'USDL',
   imageUrl: "https://fuselogo.s3.eu-central-1.amazonaws.com/fuse-dollar.png",
   decimals: 18,
-  address: Addresses.FUSE_DOLLAR_TOKEN_ADDRESS,
-  originNetwork: 'fuse',
+  address: '0x0000000000000000000000000000000000000002',
+  originNetwork: 'lyra',
   timestamp: 0,
   amount: BigInt.zero,
   walletActions: WalletActions.initial(),
