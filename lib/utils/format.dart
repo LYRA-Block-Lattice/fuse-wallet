@@ -5,7 +5,7 @@ import 'package:fusecash/models/tokens/price.dart';
 import 'package:number_display/number_display.dart';
 
 final Display display = createDisplay(
-  decimal: 2,
+  decimal: 8,
 );
 
 String calcPrice(

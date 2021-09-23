@@ -145,12 +145,12 @@ class _PriceDiffState extends State<PriceDiff> {
       onInit: (store) {
         final Token? token =
             store.state.cashWalletState.tokens[widget.tokenAddress];
-        store.dispatch(
-          getTokenPriceDiffCall(
-            widget.tokenAddress,
-            limit,
-          ),
-        );
+        // store.dispatch(
+        //   getTokenPriceDiffCall(
+        //     widget.tokenAddress,
+        //     limit,
+        //   ),
+        // );
         if (token != null) {
           store.dispatch(
             getTokenStatsCall(

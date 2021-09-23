@@ -132,10 +132,7 @@ class Token with _$Token implements Comparable<Token> {
     String limit = '30',
   }) async {
     try {
-      final List<Stats> stats = await fuseSwapService.stats(
-        address,
-        limit: limit,
-      );
+      final List<Stats> stats = await coingeckoService.getStats('lyra', 'usd');
       onDone(stats);
     } catch (e, s) {
       onError(e, s);
