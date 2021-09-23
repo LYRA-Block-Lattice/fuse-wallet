@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 // import 'package:flutter/foundation.dart';
 import 'package:fusecash/constants/urls.dart';
+import 'package:fusecash/models/tokens/price.dart';
 import 'package:injectable/injectable.dart';
 // import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
@@ -49,7 +50,11 @@ class Market {
       Response response = await dio.get(
         '/simple/price?ids=$ids&vs_currencies=$vsCurrencies',
       );
-      return response.data;
+      return Price(
+        currency: 'lyr',
+        quote: (response.data['lyra']['usd'] ?? 0).toString(),
+      );
+      //return response.data;
     } catch (e) {
       throw e;
     }

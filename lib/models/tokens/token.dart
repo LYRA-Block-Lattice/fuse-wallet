@@ -106,7 +106,8 @@ class Token with _$Token implements Comparable<Token> {
     required Function onError,
   }) async {
     try {
-      Price price = await fuseSwapService.price(address);
+      Price price =
+          await coingeckoService.getCurrentPriceOfToken('lyra', 'usd');
       onDone(price);
     } catch (e, s) {
       onError(e, s);

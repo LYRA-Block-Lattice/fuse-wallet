@@ -9,6 +9,8 @@ import 'package:fusecash/utils/onboard/Istrategy.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:wallet_core/wallet_core.dart';
 
+import 'services/apis/market.dart';
+
 Web3? fuseWeb3;
 Web3? ethereumWeb3;
 final RootRouter rootRouter = getIt<RootRouter>();
@@ -25,6 +27,8 @@ final Explorer ethereumExplorerApi = getIt<Explorer>(
 final API api = getIt<API>();
 
 final FuseSwapService fuseSwapService = getIt<FuseSwapService>();
+
+final Market coingeckoService = getIt<Market>();
 
 final Graph graph = getIt<Graph>();
 
