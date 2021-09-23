@@ -4,6 +4,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:fusecash/features/contacts/send_amount_arguments.dart';
 import 'package:fusecash/features/contacts/widgets/empty_state.dart';
+import 'package:fusecash/features/contacts/widgets/recent_contacts.dart';
 import 'package:fusecash/generated/l10n.dart';
 import 'package:fusecash/models/app_state.dart';
 import 'package:fusecash/redux/viewsmodels/contacts.dart';
@@ -16,6 +17,7 @@ import 'package:fusecash/utils/send.dart';
 import "package:ethereum_address/ethereum_address.dart";
 import 'package:fusecash/features/shared/widgets/my_scaffold.dart';
 import 'package:fusecash/features/shared/widgets/preloader.dart';
+import 'package:wallet_core/wallet_core.dart';
 
 class ContactsList extends StatefulWidget {
   final SendFlowArguments? pageArgs;
@@ -171,7 +173,7 @@ class _ContactsListState extends State<ContactsList> {
             searchController.text[1] == 'f'
         ? searchController.text.replaceFirst('f', 'x')
         : searchController.text;
-    if (isValidEthereumAddress(accountAddress)) {
+    if (LyraAddress.isAddressValid(accountAddress)) {
       listItems.add(
         SendToAccount(
           accountAddress: accountAddress,
@@ -195,14 +197,14 @@ class _ContactsListState extends State<ContactsList> {
             EmptyState(),
           ]),
         ));
-        // if (searchController.text.isEmpty) {
-        //   listItems.insert(
-        //     1,
-        //     RecentContacts(
-        //       token: widget.pageArgs?.tokenToSend,
-        //     ),
-        //   );
-        // }
+        if (searchController.text.isEmpty) {
+          listItems.insert(
+            1,
+            RecentContacts(
+              token: widget.pageArgs?.tokenToSend,
+            ),
+          );
+        }
       } else {
         List<String> titles = groups.keys.toList()..sort();
         for (String title in titles) {

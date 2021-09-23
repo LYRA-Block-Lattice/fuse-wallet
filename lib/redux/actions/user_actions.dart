@@ -611,6 +611,7 @@ ThunkAction setupWalletCall(walletData) {
 ThunkAction getWalletAddressesCall() {
   return (Store store) async {
     try {
+      api.setJwtToken(store.state.userState.accountAddress);
       dynamic walletData = await api.getWallet();
       store.dispatch(setupWalletCall(walletData));
     } catch (e, s) {

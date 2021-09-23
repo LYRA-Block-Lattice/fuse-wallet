@@ -275,7 +275,7 @@ class _SendAmountScreenState extends State<SendAmountScreen>
         }
         return MyScaffold(
           title: title,
-          body: Container(
+          body: SingleChildScrollView(
             padding: EdgeInsets.only(
               top: 20,
               bottom: 20,

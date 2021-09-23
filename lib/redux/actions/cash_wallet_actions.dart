@@ -612,9 +612,9 @@ ThunkAction sendNativeTokenCall(
         },
       );
 
-      dynamic jobId = response['job']['_id'];
-      log.info('sendNativeTokenCall');
-      log.info('Job $jobId for sending native token sent to the relay service');
+      // dynamic jobId = response['job']['_id'];
+      // log.info('sendNativeTokenCall');
+      // log.info('Job $jobId for sending native token sent to the relay service');
 
       sendSuccessCallback();
     } catch (e, s) {

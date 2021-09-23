@@ -21,6 +21,7 @@ class HomeScreen extends StatelessWidget {
         viewModel.onStart();
       },
       onInit: (store) {
+        store.dispatch(refresh());
         // final communities = store.state.cashWalletState.communities;
         // if (!communities.containsKey(defaultCommunityAddress.toLowerCase())) {
         //   store.dispatch(switchCommunityCall(defaultCommunityAddress));
