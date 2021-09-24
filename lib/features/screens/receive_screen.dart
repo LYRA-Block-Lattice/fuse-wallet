@@ -20,7 +20,7 @@ class ReceiveScreen extends StatelessWidget {
         distinct: true,
         converter: ReceiveModel.fromStore,
         builder: (_, viewModel) {
-          final String barcodeData = 'fuse:${viewModel.walletAddress}';
+          final String barcodeData = 'lyra:${viewModel.walletAddress}';
           return Container(
             height: MediaQuery.of(context).size.height * 0.7,
             child: Column(

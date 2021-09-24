@@ -138,7 +138,7 @@ class Avatar extends StatelessWidget {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) => ReceiveDialog(
-                                'fuse:${viewModel.walletAddress}',
+                                'lyra:${viewModel.walletAddress}',
                               ),
                             );
                           },

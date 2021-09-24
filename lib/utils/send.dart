@@ -12,6 +12,7 @@ import 'package:fusecash/utils/format.dart';
 import 'package:fusecash/utils/log/log.dart';
 import 'package:fusecash/utils/phone.dart';
 import 'package:fusecash/features/shared/widgets/preloader.dart';
+import 'package:lyra/lyra.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:phone_number/phone_number.dart';
 
@@ -149,17 +150,17 @@ void barcodeScannerHandler(
       final bool hasColon = scanResult.contains(':');
       if (hasColon) {
         List<String> parts = scanResult.split(':');
-        bool expression =
-            parts.length == 2 && (parts[0] == 'lyra' || parts[0] == 'ethereum');
+        bool expression = parts.length == 2 &&
+            (parts[0] == 'lyra'); // || parts[0] == 'ethereum');
         if (expression) {
           String accountAddress = parts[1];
-          if (isValidEthereumAddress(accountAddress)) {
+          if (LyraCrypto.isAccountIdValid(accountAddress)) {
             sendToPastedAddress(context, accountAddress);
           } else {
             throw 'ERROR';
           }
         }
-      } else if (isValidEthereumAddress(scanResult)) {
+      } else if (LyraCrypto.isAccountIdValid(scanResult)) {
         sendToPastedAddress(context, scanResult);
       }
     }
