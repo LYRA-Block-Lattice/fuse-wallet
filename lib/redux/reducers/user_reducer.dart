@@ -96,6 +96,7 @@ UserState _createNewWalletSuccess(
     mnemonic: action.mnemonic,
     privateKey: action.privateKey,
     accountAddress: action.accountAddress,
+    warnSendDialogShowed: true, // disable fuse address warning
   );
 }
 
