@@ -76,7 +76,7 @@ String getFiatValue(
       ((value / BigInt.from(pow(10, decimals))) * price).toString());
   if (formattedValue.compareTo(Decimal.zero) == 1 &&
       formattedValue.compareTo(Decimal.parse('0.01')) <= 0) {
-    return '< 0.01';
+    return '0';
   }
   return display(num.parse(formattedValue.toStringAsFixed(fractionDigits)));
 }

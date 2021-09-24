@@ -511,7 +511,7 @@ ThunkAction fetchListOfTokensByAddress() {
       // List<Token> tokensList = await fuseExplorerApi.getListOfTokensByAddress(
       //   walletAddress,
       // );
-      List<Token> tokensList = [lyraToken, lyraDollarToken];
+      List<Token> tokensList = [lyraToken]; //, lyraDollarToken];
       CashWalletState cashWalletState = store.state.cashWalletState;
       Map<String, Token> newTokens = Map<String, Token>.from(tokensList.fold(
         {},

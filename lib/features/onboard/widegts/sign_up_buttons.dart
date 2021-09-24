@@ -45,7 +45,7 @@ class _SignUpButtonsState extends State<SignUpButtons> {
                     if (context.router.canPopSelfOrChildren) {
                       context.router.popUntilRoot();
                     }
-                    context.router.replace(MainScreen());
+                    context.router.replace(PinCodeScreen());
                   } else {
                     setState(() {
                       isPrimaryPreloading = true;
@@ -108,7 +108,7 @@ class _SignUpButtonsState extends State<SignUpButtons> {
                                   isTransparentPreloading = true;
                                 });
                                 viewModel.createLocalAccount(() {
-                                  context.router.push(SignUpScreen());
+                                  context.router.push(UserNameScreen());
                                 }, () {
                                   setState(() {
                                     isTransparentPreloading = false;

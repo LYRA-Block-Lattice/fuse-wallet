@@ -27,6 +27,7 @@ final Token lyraDollarToken = Token(
   decimals: 18,
   address: '0x0000000000000000000000000000000000000002',
   originNetwork: 'lyra',
+  isNative: true,
   timestamp: 0,
   amount: BigInt.zero,
   walletActions: WalletActions.initial(),
