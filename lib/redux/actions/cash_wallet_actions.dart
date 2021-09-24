@@ -368,13 +368,8 @@ ThunkAction createAccountWalletCall(String accountAddress) {
       log.info('=== in ThunkAction createAccountWalletCall, accountAddress is' +
           accountAddress);
       api.setJwtToken(accountAddress);
-      // var jsonString =
-      //     '{ "walletAddress": "${accountAddress}", "backup": false, "networks": ["mainnet", "testnet"] }';
       var jsonString =
-          '{"walletAddress": "${accountAddress}","accountAddress": "${accountAddress}","networks": ["mainnet", "testnet"],"backup": false,"phoneNumber": "1","communityManager": "","transferManager": "","dAIPointsManager": ""}';
-      // 'backup': 'false',
-      // 'networks': {['mainnet', 'testnet'] }
-      //};
+          '{"walletAddress": "${accountAddress}","accountAddress": "${accountAddress}","networks": ["mainnet"],"backup": false,"phoneNumber": "1","communityManager": "","transferManager": "","dAIPointsManager": ""}';
       Map<String, dynamic> response = jsonDecode(jsonString);
       store.dispatch(generateWalletSuccessCall(response));
       // return;

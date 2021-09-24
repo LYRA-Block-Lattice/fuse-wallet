@@ -3,7 +3,7 @@ class UrlConstants {
 
   // FUSE NETWORK API'S
   static const String FUSE_EXPLORER_URL = '';
-  static const String FUSE_RPC_URL = 'testnet';
+  static const String FUSE_RPC_URL = '';
   static const String FUSESWAP_TOKEN_LIST = '';
   static const String FUSESWAP_SERVICE_API = '';
 

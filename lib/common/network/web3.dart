@@ -22,7 +22,7 @@ abstract class Web3Di {
   ) =>
       Web3(
         approveCb: approvalCallback,
-        url: UrlConstants.FUSE_RPC_URL,
+        url: dotenv.get('NETWORK_NAME', fallback: 'mainnet'),
         networkId: Variables.FUSE_CHAIN_ID,
         defaultCommunityAddress: defaultCommunityAddress,
         communityManagerAddress: walletModules?['communityManager'],
